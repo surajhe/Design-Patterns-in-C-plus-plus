@@ -26,6 +26,8 @@ class Singleton
 		}
 };
 
+Singleton* Singleton:: obj = nullptr;
+
 int main() {
 	// your code goes here
 	return 0;

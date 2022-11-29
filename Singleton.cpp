@@ -1,5 +1,4 @@
 #include <iostream>
-#include <mutex>
 using namespace std;
 
 
@@ -13,15 +12,12 @@ class Singleton
       static Singleton &GetInstance()
       {
         if(!obj)
-        {
-         // mutex _mutex;
-         // lock_guard<mutex> _lock(_mutex);
-         // if(!obj)
-          //{            
+        {         
             obj = new Singleton();
-         // }
         }
         
         return *obj;
       }
-};  
+};
+
+Singleton* Singleton:: obj = nullptr;

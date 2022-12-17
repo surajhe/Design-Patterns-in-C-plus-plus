@@ -189,12 +189,31 @@ class PaneerTopping : public ToppingDecorator
 		}
 };
 
+
+
+
 int main() {
 	// your code goes here
 	
-	Pizza *p = new PaneerTopping(*(new cheezeTopping(*(new TomatoTopping(*(new BBQChicken()))))));
+	// Pizza *p = new PaneerTopping(*(new cheezeTopping(*(new TomatoTopping(*(new BBQChicken()))))));
+	// cout << p->cost() << endl;
+	// cout << p->description();
+	
+	Pizza* p = new BBQChicken();
 	cout << p->cost() << endl;
-	cout << p->description();
+	cout << p->description() << endl;
+	
+	Pizza* tomatoTopping = new TomatoTopping(*p);
+	cout << tomatoTopping->cost() << endl;
+	cout << tomatoTopping->description() << endl;
+	
+	Pizza* chezeTopping = new cheezeTopping(*tomatoTopping);
+	cout << chezeTopping->cost() << endl;
+	cout << chezeTopping->description() << endl;
+	
+	Pizza* paneerTopping = new PaneerTopping(*chezeTopping);
+	cout << paneerTopping->cost() << endl;
+	cout << paneerTopping->description() << endl;
 	
 	return 0;
 } 

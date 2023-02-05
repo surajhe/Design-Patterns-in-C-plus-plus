@@ -232,7 +232,7 @@ void BusinessLayer()
         DAL = new DataAccessLayer();
     }
 
-    void save(Object obj)
+    void save(Object details)
     {
         DAL.save(details);
     }
@@ -256,14 +256,14 @@ class BusinessLayer
 private:
     IRepoLAyer *DAL;
 public:
-    void BusinessLayer(IRepoLayer *obj)
+    BusinessLayer(IRepoLayer *obj)
     {
         DAL = obj;
     }
 
     void save(Object obj)
     {
-        DAL.save(details);
+        DAL.save(obj);
     }
 };
 

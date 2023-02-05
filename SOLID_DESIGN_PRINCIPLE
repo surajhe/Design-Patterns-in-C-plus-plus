@@ -1,0 +1,290 @@
+SOLLID DESIGN PRINCIPLES
+-------------------------------------------------------
+1. Single Responsibility Principle
+2. Open-Closed Principle
+3. Liskov Substitution Principle
+4. Interface Segregation Principle
+5. Dependency Inversion Principle
+
+to achieve - Reusability, Maintanability, Testability, Loose coupling, Flexibility, understandable, easy to maintain, avoid duplicate code etc.
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+1. Single Responsibility Principle
+----------------------------------------
+class should have only signle responsibility. class should have only one reason to change
+everything in thst class related to that single purpose.
+classess become smaller and cleaner
+
+class user{
+    
+public:
+    bool login(string username, string password);
+    bool Register(string username, string password, string email);
+    bool Sendmail(string content);
+};
+
+class userLogin{
+    
+public:
+    bool login(string username, string password);
+};
+
+class userRegister{
+
+public:
+    bool Register(string username, string password, string email);
+};
+
+class userSendMail{
+
+public:
+    bool Sendmail(string content);
+};
+
+============================================================================================================
+
+2. Open-Closed Principle
+---------------------------
+classes or you code should be open for extension but closed for modification.
+any new functionality should be implemented by adding new classess,methods, instead of changing current ones.
+allow client to access original class as abstract interface
+
+class IDiscount{
+
+public:
+
+	virtual int CalculateDiscount(int prize) = 0;
+};
+
+class SummerDiscount:public IDiscount
+{
+	public:
+	int CalculateDiscount(int prize) override
+	{
+		return prize * 0.1;
+	
+	}
+};
+
+class TextAdd{
+    
+    public:
+    virtual string add(string& str1, string& str2) = 0;
+};
+
+class TextAppend:public TextAdd
+{
+public :
+    string add(string& str1, string& str2)
+    {
+        return str1 + str2;
+    }
+};
+
+class TextPrepend:public TextAdd
+{
+public:
+    string add(string& str1, string& str2)
+    {
+        return str2 + str1;
+    }
+};
+
+==================================================================================================================================
+
+3. Liskov Substitution Principle
+------------------------------------
+It is extension of open closed principle
+IF S is subtype of T then objects of T can be replaced with objects of type "S"
+derived types must be completely substitutable for their base types.
+
+class shape{
+public:
+    virtual double area() = 0;
+};
+
+class Rectangle:public shape{
+    int width, height;
+public:
+    Rectangle(){};
+    Rectangle(int w, int h):width(w),height(h){};
+
+    double area() override
+    {
+        return width*height;
+    }
+};
+
+class Square:public shape{
+    int side;
+public:
+    Square(){};
+    Square(int s):side(s){};
+
+    double area() override
+    {
+    return side*side;
+    }
+};
+
+int main()
+{
+    std::vector<shape*> V{new Rectangle(3,4), new Square(5)};
+    cout << V[0]->area() <<endl;
+    cout << V[1]->area() <<endl;
+
+    return 0;
+}
+
+=========================================================================================================================================
+
+4. Interface Segregation
+---------------------------
+client class should never be forced to implement an interface that it doesn't use.
+
+One fat/big interface must be split to many smaller and relevant interfaces so that clients can know about the interfaces relevant to them 
+one large job is segregated to multiple interfaces depending on the requirements.
+
+
+class IMachine{
+
+public:
+    virtual void print(Document &doc);
+    virtual void scan(Document &doc);
+    virtual void fax(Document &doc);
+};
+
+class printer:public IMachine{
+public:
+    void print(Document &doc) override
+    {
+        // prints document
+    }
+    
+    void scan(Document &doc) override
+    {
+        // scans document
+    }
+
+    void fax(Document &doc) override
+    {
+        // fax document
+    }
+};
+
+------------
+
+class IPrinter{
+
+public:
+    virtual void print(Document &doc) = 0;
+};
+
+class IScanner{
+public:
+    virtual void scan(Document &doc) = 0;
+};
+
+class IFax{
+
+public:
+    virtual void fax(Document &doc) = 0;
+};
+
+class PrintScan:public IPrinter, IScanner
+{
+public :
+    void print(Document &doc) override
+    {
+        // print
+    }
+
+    void scan(Document &doc) override
+    {
+        // scan
+    }
+};
+
+
+===========================================================================================================================================
+
+5. Dependency Inversion
+Higher level module does not depend on lower level module but instead they both should depend on abstraction.
+Abstraction should not depend on details but details should depend on abstraction.
+
+object of 2 classes should not depend on each other instead they depend on each other via interface.
+
+introduce new interface (Repository Interface)  between Domain layer and Data access layer.
+
+Adapter design pattern is example of Dependency inversion.
+
+Presentation Layer -> Domain Layer -> Data Access Layer
+
+
+class BusinessLayer
+{
+private:
+    DataAccessLayer DAL;
+public:
+
+void BusinessLayer()
+    {
+        DAL = new DataAccessLayer();
+    }
+
+    void save(Object obj)
+    {
+        DAL.save(details);
+    }
+};
+
+
+
+
+class DataAccessLayer
+{
+    void save(Object details)
+    {
+        //save
+    }
+};
+
+----------------------------------------------------
+
+class BusinessLayer
+{
+private:
+    IRepoLAyer *DAL;
+public:
+    void BusinessLayer(IRepoLayer *obj)
+    {
+        DAL = obj;
+    }
+
+    void save(Object obj)
+    {
+        DAL.save(details);
+    }
+};
+
+class IRepoLayer{
+    virtual void save(Object obj) = 0;
+};
+        
+
+class DataAccessLayer : public IRepoLayer
+{
+    void save(Object details) override
+    {
+        //save
+    }
+};
+
+
+
+
+
+
+
+
+ 

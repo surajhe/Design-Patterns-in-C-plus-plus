@@ -45,11 +45,11 @@ int main()
 
     if(choice == 1)
     {
-        sort_obj = std::move(std::make_unique<BubbleSort>());
+        sort_obj = std::move(std::make_unique<BubbleSort>());  // new BubbleSort();
     }
     else if(choice == 2)
     {
-        sort_obj = std::move(std::make_unique<QuickSort>());
+        sort_obj = std::move(std::make_unique<QuickSort>());  // new QuickSort(); 
     }
 
     if(sort_obj != NULL)

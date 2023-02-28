@@ -35,7 +35,8 @@ public:
 
 int main()
 {
-    SortStrategy *sort_obj = nullptr;
+    std::unique_ptr<SortStrategy>  sort_obj;
+    //SortStrategy *sort_obj = nullptr;
     vector<int> V{5,3,6,7,8,1,2};
 
     int choice;
@@ -44,20 +45,17 @@ int main()
 
     if(choice == 1)
     {
-        sort_obj = new BubbleSort();
+        sort_obj = std::move(std::make_unique<BubbleSort>());
     }
     else if(choice == 2)
     {
-        sort_obj = new QuickSort();
+        sort_obj = std::move(std::make_unique<QuickSort>());
     }
 
     if(sort_obj != NULL)
     {
         sort_obj->Sort(V);
     }
-
-    delete sort_obj;
-    sort_obj = nullptr;
 
     return 0;
 }

@@ -15,7 +15,78 @@ using namespace std;
 
 
 
-int main() {
-	// your code goes here
-	return 0;
+#include<iostream>
+#include <bits\stdc++.h>
+
+using namespace std;
+
+class IObserver
+{
+public:
+    virtual void update(int value) = 0;
+};
+
+class observer1:public IObserver
+{
+public:
+    void update(int value) override
+    {
+        cout << "value updated" <<endl;
+    }
+};
+
+class observer2:public IObserver
+{
+public:
+    void update(int value) override
+    {
+        cout << "value updated" <<endl;
+    }
+};
+
+class Subject
+{
+private:
+    int value;
+    std::list<std::shared_ptr<IObserver>> observerList;
+public:
+    void valueChanged(int val)
+    {
+        value = val;
+        notifyAll();
+    }
+    void addObserver(std::shared_ptr<IObserver> obj)
+    {
+        observerList.push_back(obj);
+    }
+
+    void removeObserver(std::shared_ptr<IObserver> obj)
+    {
+        observerList.remove(obj);
+    }
+
+    void notifyAll()
+    {
+        for(auto i:observerList)
+        {
+            i->update(value);
+        }
+    }
+
+};
+
+
+int main()
+{
+    std::unique_ptr<Subject> subject = std::make_unique<Subject>();
+
+    std::shared_ptr<observer1> ob1 = std::make_shared<observer1>();
+    std::shared_ptr<observer2> ob2 = std::make_shared<observer2>();
+
+    subject->addObserver(ob1);
+    subject->addObserver(ob2);
+
+    subject->valueChanged(3);
+
+    return 0;
 }

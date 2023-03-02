@@ -25,6 +25,9 @@
 // Please create your class diagrams on draw.io, push the code to Github and submit the assignment by filling this form.
 
 
+// It allows adding new behaviors to objects dynamically by placing them inside special wrapper object, called decorators.
+// Decorators provide flexible alternatives to subclassing for extending functionality.
+
 
 #include <iostream>
 using namespace std;

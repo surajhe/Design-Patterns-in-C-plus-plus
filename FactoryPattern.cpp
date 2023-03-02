@@ -1,7 +1,9 @@
-// In factory pattern we create objects without exposing the creational logic to the client and client uses r=the same common interface to create q new type of bject.
 
 #include <iostream>
 #include <bits/stdc++.h>
+
+// here we create objects withhout exposing the creational logic to the client and client uses the same common interface to create a new type of objects.
+// it creates objects without specifying their concrete classess.
 
 using namespace std;
 

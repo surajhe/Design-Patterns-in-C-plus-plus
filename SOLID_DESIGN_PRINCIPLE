@@ -12,7 +12,7 @@ to achieve - Reusability, Maintanability, Testability, Loose coupling, Flexibili
 1. Single Responsibility Principle
 ----------------------------------------
 class should have only signle responsibility. class should have only one reason to change
-everything in thst class related to that single purpose.
+everything in that class related to that single purpose.
 classess become smaller and cleaner
 
 class user{
